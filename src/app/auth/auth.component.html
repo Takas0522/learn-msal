@@ -1,0 +1,8 @@
+<form [formGroup]="authFormGroup" (ngSubmit)="login()">
+  <div>
+    <input formControlName="clientId" placeholder="Client Id" />
+  </div>
+  <div>
+    <button type="submit">ログイン</button>
+  </div>
+</form>
