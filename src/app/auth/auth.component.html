@@ -1,5 +1,8 @@
 <form [formGroup]="authFormGroup" (ngSubmit)="login()">
   <div>
+    <input formControlName="applicationName" placeholder="Application Name" />
+  </div>
+  <div>
     <input formControlName="clientId" placeholder="Client Id" />
   </div>
   <div>

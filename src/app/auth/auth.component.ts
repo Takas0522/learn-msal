@@ -19,13 +19,13 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.authFormGroup = this.formBuilder.group({
+      applicationName: ['', Validators.required],
       clientId: ['', Validators.required]
     });
   }
 
   login() {
     const configSetting = this.authFormGroup.value;
-    this.authService.clientInit(configSetting);
     this.authService.login();
   }
 
