@@ -20,7 +20,11 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
     this.authFormGroup = this.formBuilder.group({
       applicationName: ['', Validators.required],
-      clientId: ['', Validators.required]
+      clientId: ['', Validators.required],
+      authority: [''],
+      tenantId: [''],
+      policyName: [''],
+      isAuthB2C: [false]
     });
   }
 
