@@ -7,9 +7,18 @@ import { IAuthSettings } from './models/auth-settings.mode';
 export class AuthService {
 
   private msalClient: msal.UserAgentApplication;
+  private scopes: string[];
 
   constructor() {
-    this.clientInit({ scopes: [], applicationName: '', clientId: '6d6810ca-bfe2-45ba-aee0-fcbe2777dbd5' });
+    this.clientInit({
+      scopes: [],
+      applicationName: '',
+      clientId: '',
+      authority: '',
+      isAuthB2C: false,
+      policyName: '',
+      tenantId: ''
+    });
   }
 
   private userAccount: BehaviorSubject<msal.Account> = new BehaviorSubject<msal.Account>(null);
@@ -22,31 +31,43 @@ export class AuthService {
 
   clientInit(configData: IAuthSettings) {
     const con: msal.Configuration = {
-      auth: { clientId: configData.clientId }
+      auth: {
+        clientId: '',
+        authority: ''
+      }
     };
     this.msalClient = new msal.UserAgentApplication(con);
-    this.msalClient.handleRedirectCallback((err, res) => {
-      console.log('handle');
-      console.log(res);
-      console.log(err);
-    });
   }
 
   login() {
     const account = this.msalClient.getAccount();
     if (!account) {
       console.log(account);
-      this.msalClient.loginPopup({ scopes: ['openid', 'profile', 'user.read' ] }).then(
+      this.msalClient.loginPopup({ scopes: this.scopes }).then(
         loginResponse => {
-          console.log('hoge');
+          console.log('login')
           console.log(loginResponse);
+          this.msalClient.acquireTokenSilent({ scopes: this.scopes }).then(token => {
+            console.log('get token');
+            console.log(token);
+          });
         })
         .catch(err => {
           console.log(err);
         });
     } else {
-      console.log(account);
+      this.msalClient.acquireTokenSilent({ scopes: this.scopes}).then(token => {
+        console.log('get token');
+        console.log(token);
+      });
     }
+  }
+
+  getToken() {
+    this.msalClient.acquireTokenSilent({ scopes: ['user.read'] }).then(token => {
+      console.log('get token');
+      console.log(token);
+    });
   }
 
 }

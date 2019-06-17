@@ -1,15 +1,35 @@
 <form [formGroup]="authFormGroup" (ngSubmit)="login()">
   <div>
-    <input formControlName="applicationName" placeholder="Application Name" />
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="applicationName"
+        placeholder="Application Name" />
+    </mat-form-field>
   </div>
   <div>
-    <input formControlName="clientId" placeholder="Client Id" />
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="clientId"
+        placeholder="Client Id" />
+    </mat-form-field>
   </div>
   <div>
-    <input formControlName="authority" placeholder="Authority" />
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="authority"
+        placeholder="Authority" />
+    </mat-form-field>
   </div>
   <div>
-    <input formControlName="tenantId" placeholder="Tenant Id" />
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="tenantId"
+        placeholder="Tenant Id" />
+    </mat-form-field>
   </div>
   <div>
     <input formControlName="policyName" placeholder="Policy Name" />
@@ -21,3 +41,5 @@
     <button type="submit">ログイン</button>
   </div>
 </form>
+
+<button (click)="getToken()">ログイン</button>

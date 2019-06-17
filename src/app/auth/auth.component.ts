@@ -33,4 +33,8 @@ export class AuthComponent implements OnInit {
     this.authService.login();
   }
 
+  getToken() {
+    this.authService.getToken();
+  }
+
 }
