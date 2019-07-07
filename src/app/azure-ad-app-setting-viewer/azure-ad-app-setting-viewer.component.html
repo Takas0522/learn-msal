@@ -1,0 +1,46 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{adApplicationData.applicationName}}
+    </mat-panel-title>
+    <mat-panel-description>
+      TOKEN
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="content">
+    <mat-form-field>
+      <input matInput
+        [ngModel]="adApplicationData.authority"
+        placeholder="Authority"
+        disabled/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+        [ngModel]="adApplicationData.clientId"
+        placeholder="ClientId"
+        disabled/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+        [ngModel]="adApplicationData.policyName"
+        placeholder="PolicyName"
+        disabled/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+        [ngModel]="adApplicationData.tenantId"
+        placeholder="TenantId"
+        disabled/>
+    </mat-form-field>
+    <button mat-stroked-button>
+      Get Access Token
+    </button>
+    <button mat-flat-button color="primary"
+      (click)="editAzureAdApplication()">
+      Edit
+    </button>
+    <button mat-flat-button color="warn">
+      Delete
+    </button>
+  </div>
+</mat-expansion-panel>
