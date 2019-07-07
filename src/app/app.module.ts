@@ -3,16 +3,17 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
+import { AuthSettingDialogComponent } from './auth/auth-setting-dialog/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { AuthDataInputDaialogComponent } from './auth/auth-data-input-daialog/auth-data-input-daialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
-    AuthDataInputDaialogComponent
+    AuthSettingDialogComponent
+  ],
+  entryComponents: [
+    AuthSettingDialogComponent
   ],
   imports: [
     BrowserModule,

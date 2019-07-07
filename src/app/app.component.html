@@ -1,8 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary"
+    class="mat-elevation-z8">
     <mat-toolbar-row>
         AuthSample
     </mat-toolbar-row>
 </mat-toolbar>
 <div class ="content">
-    <app-auth></app-auth>
+    <button mat-raised-button color="primary"
+        (click)="addAzureAdApplication()">
+        Add Azure AD Application
+    </button>
 </div>
