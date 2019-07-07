@@ -42,24 +42,15 @@ export class AuthService {
   login() {
     const account = this.msalClient.getAccount();
     if (!account) {
-      console.log(account);
       this.msalClient.loginPopup({ scopes: this.scopes }).then(
         loginResponse => {
-          console.log('login')
-          console.log(loginResponse);
-          this.msalClient.acquireTokenSilent({ scopes: this.scopes }).then(token => {
-            console.log('get token');
-            console.log(token);
-          });
+          this.getToken();
         })
         .catch(err => {
           console.log(err);
         });
     } else {
-      this.msalClient.acquireTokenSilent({ scopes: this.scopes}).then(token => {
-        console.log('get token');
-        console.log(token);
-      });
+      this.getToken();
     }
   }
 
