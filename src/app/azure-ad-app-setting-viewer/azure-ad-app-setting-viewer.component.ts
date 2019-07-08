@@ -15,9 +15,7 @@ export class AzureAdAppSettingViewerComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog
-  ) {
-    this.makeDummyData();
-  }
+  ) {}
 
   ngOnInit() {
   }
@@ -32,15 +30,4 @@ export class AzureAdAppSettingViewerComponent implements OnInit {
     });
   }
 
-  private makeDummyData() {
-    this.adApplicationData = {
-      applicationName: 'hogehoge',
-      authority: 'fugafuga',
-      clientId: 'piypiyo',
-      isAuthB2C: false,
-      policyName: 'polipoli',
-      scopes: [],
-      tenantId: 'tenten'
-    };
-  }
 }

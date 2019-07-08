@@ -9,5 +9,9 @@
         (click)="addAzureAdApplication()">
         Add Azure AD Application
     </button>
-    <app-azure-ad-app-setting-viewer></app-azure-ad-app-setting-viewer>
+    <ng-template ngFor let-appData [ngForOf]="appDatas">
+        <app-azure-ad-app-setting-viewer
+            [adApplicationData]="appData">
+        </app-azure-ad-app-setting-viewer>
+    </ng-template>
 </div>
