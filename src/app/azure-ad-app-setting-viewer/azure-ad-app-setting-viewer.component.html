@@ -32,8 +32,8 @@
         placeholder="TenantId"
         disabled/>
     </mat-form-field>
-    <button mat-stroked-button>
-      Get Access Token
+    <button mat-stroked-button (click)="getIdToken()">
+      Get ID Token
     </button>
     <button mat-flat-button color="primary"
       (click)="editAzureAdApplication()">

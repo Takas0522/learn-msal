@@ -18,9 +18,10 @@ export class AppComponent implements OnInit {
     private appService: AppService
   ) {}
 
-
   ngOnInit() {
-    this.appService.appData$.subscribe(x => this.appDatas = x);
+    this.appService.appData$.subscribe(x => {
+      this.appDatas = x;
+    });
     this.appService.getAzureAdAppData();
   }
 
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit {
       data: initData
     });
     dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
+      this.appService.setAzureAdAppData(res);
     });
   }
 

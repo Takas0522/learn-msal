@@ -40,6 +40,7 @@ export class AuthService {
       this.msalClient.loginPopup({ scopes: this.scopes }).then(
         loginResponse => {
           this.loginState.next('AUTH_COMP');
+          this.userAccount.next(this.msalClient.getAccount());
         })
         .catch(err => {
           this.loginState.next('AUTH_ERROR');

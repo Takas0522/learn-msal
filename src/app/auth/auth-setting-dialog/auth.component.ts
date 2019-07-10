@@ -17,7 +17,6 @@ export class AuthSettingDialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
     private matDialogRef: MatDialogRef<AuthSettingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: IAuthSettings
   ) {
@@ -43,15 +42,7 @@ export class AuthSettingDialogComponent implements OnInit {
     }
 
     const configSetting = this.authFormGroup.value;
-    this.authService.clientInit(configSetting);
-    this.authService.login();
-    this.authService.loginState$.subscribe(x => {
-      if (x === 'AUTH_COMP') {
-        this.matDialogRef.close(configSetting);
-      } else {
-        alert('Can Not Auth');
-      }
-    });
+    this.matDialogRef.close(configSetting);
   }
 
 }

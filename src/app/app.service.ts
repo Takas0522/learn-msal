@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { IAuthSettings } from './auth/models/auth-settings.mode';
 
 @Injectable({
@@ -7,32 +7,25 @@ import { IAuthSettings } from './auth/models/auth-settings.mode';
 })
 export class AppService {
 
-  private appData: Subject<IAuthSettings[]> = new Subject();
-
-  constructor() { }
+  private appData: BehaviorSubject<IAuthSettings[]> = new BehaviorSubject([]);
 
   get appData$() {
     return this.appData.asObservable();
   }
 
   getAzureAdAppData() {
-    // localstorageから取りたいがとりあえず配列から生成
-    const dummyData = [...Array(10).keys()].map(x => {
-      const d: IAuthSettings = {
-        applicationName: `${x}App`,
-        authority: `${x}Auth`,
-        clientId: `${x}cluent`,
-        isAuthB2C: (x % 2) === 0,
-        policyName: `${x}Policy`,
-        scopes: [],
-        tenantId: `${x}Tenatm`
-      };
-      return d;
-    });
-    this.appData.next(dummyData);
+    const adappdata = localStorage.getItem('adapp');
+    if (typeof(adappdata) !== 'undefined' && adappdata !== null) {
+      const azureAdAppData = JSON.parse(adappdata) as IAuthSettings[];
+      this.appData.next(azureAdAppData);
+    }
   }
 
   setAzureAdAppData(data: IAuthSettings) {
-
+    const datas = this.appData.getValue() as IAuthSettings[];
+    datas.push(data);
+    localStorage.removeItem('adapp');
+    localStorage.setItem('adapp', JSON.stringify(datas));
+    this.appData.next(datas);
   }
 }
