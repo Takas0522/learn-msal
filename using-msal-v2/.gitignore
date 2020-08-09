@@ -1,0 +1,4 @@
+node_modules
+/**/ad-settings.*
+*.js
+!webpack.config.js

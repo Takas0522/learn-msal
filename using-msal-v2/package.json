@@ -1,0 +1,21 @@
+{
+  "name": "using-msal-v2",
+  "version": "0.0.1",
+  "description": "Takas0522",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "build": "webpack"
+  },
+  "author": "Takas0522",
+  "license": "MIT",
+  "dependencies": {
+    "msal": "^1.3.4"
+  },
+  "devDependencies": {
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
