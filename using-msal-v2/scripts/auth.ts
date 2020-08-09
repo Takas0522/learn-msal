@@ -2,18 +2,19 @@ import { UserAgentApplication } from 'msal';
 import { adSettings } from './ad-settings';
 
 export class Auth {
+
+    scopes: string [] = ['user.read'];
     private _client = new UserAgentApplication(adSettings);
 
-    constructor() {
+    private async handleRedirectAsync(): Promise<void> {
         this._client.handleRedirectCallback((err, res) => {
             console.log({ err });
             console.log({ res });
         });
     }
 
-    scopes: string [] = ['user.read'];
-
     loginRedirect() {
+        this.handleRedirectAsync();
         const account = this._client.getAccount();
         if (!account) {
             this._client.loginRedirect({ scopes: this.scopes  });
