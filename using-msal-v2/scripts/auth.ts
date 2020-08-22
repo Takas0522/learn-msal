@@ -1,28 +1,32 @@
-import { UserAgentApplication } from 'msal';
+import { PublicClientApplication, AuthenticationResult, AccountInfo } from '@azure/msal-browser';
 import { adSettings } from './ad-settings';
 
 export class Auth {
 
     scopes: string [] = ['user.read'];
-    private _client = new UserAgentApplication(adSettings);
+    account: AccountInfo | null = null;
+    private _client = new PublicClientApplication(adSettings);
 
     private async handleRedirectAsync(): Promise<void> {
-        this._client.handleRedirectCallback((err, res) => {
-            console.log({ err });
-            console.log({ res });
+        const res = await this._client.handleRedirectPromise().catch(err => {
+            console.log({err});
         });
+        console.log(res);
+        if (res != null) {
+            this.account = (res as AuthenticationResult).account;
+        }
     }
 
-    loginRedirect() {
-        this.handleRedirectAsync();
-        const account = this._client.getAccount();
-        if (!account) {
+    async loginRedirect() {
+        await this.handleRedirectAsync();
+        if (!this.account) {
             this._client.loginRedirect({ scopes: this.scopes  });
         }
     }
 
-    async acquireToken(): Promise<string> {
-        const res = await this._client.acquireTokenSilent({ scopes: this.scopes }).catch(
+    async acquireToken(): Promise<string | void> {
+        if (this.account == null) { return; }
+        const res = await this._client.acquireTokenSilent({ scopes: this.scopes, account: this.account }).catch(
             err => {
                 return this._client.acquireTokenPopup({ scopes: this.scopes });
             }
