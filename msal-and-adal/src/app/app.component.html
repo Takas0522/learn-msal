@@ -1,0 +1,24 @@
+<div>
+  adalAuthenticated: {{adalAuthenticated}}
+</div>
+<div>
+  adalLoginUser: {{adalLoginUser}}
+</div>
+<div>
+  msalAuthenticated: {{msalAuthenticated}}
+</div>
+<div>
+  msalLoginUser: {{msalLoginUser}}
+</div>
+<div>
+  <button (click)="adalAquireToken()">adal aquireToken</button>
+</div>
+<div>
+  adalAccessToken: {{adalAccessToken}}
+</div>
+<div>
+  <button (click)="msalAquireToken()">msal aquireToken</button>
+</div>
+<div>
+  msalAccessToken: {{msalAccessToken}}
+</div>
