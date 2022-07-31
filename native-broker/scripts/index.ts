@@ -5,5 +5,7 @@ const auth = new Auth();
 const button = document.getElementById('gettoken');
 button?.addEventListener('click', async () => {
   const res = await auth.acquireToken();
-  console.log(res.accessToken);
+  if (res) {
+    console.log(res.accessToken);
+  }
 });
