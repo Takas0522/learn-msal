@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script type="text/javascript" src="environments.js"></script>
+    <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
+  </head>
+  <body>
+    <button id="login">LOGIN</button>
+    <script type="text/javascript">
+      const msalClient = new msal.PublicClientApplication(msalconfig);
+      msalClient.handleRedirectPromise().then(res => {
+        console.log(res)
+        loginResponse = res;
+      });
+      const btn = document.getElementById("login");
+      btn.onclick = () => {
+        msalClient.loginRedirect({ scopes: ['api://4e9d173a-a714-4775-b619-bb48f5cd212d/Reader'] });
+        return;
+      }
+    </script>
+  </body>
+</html>
