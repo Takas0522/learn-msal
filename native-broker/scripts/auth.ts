@@ -1,4 +1,4 @@
-import { AuthenticationResult, PublicClientApplication, AuthError } from '@azure/msal-browser';
+import { AuthenticationResult, PublicClientApplication, AuthError, AccountInfo } from '@azure/msal-browser';
 import { authSetting } from '../environments/environments';
 
 export class Auth {
@@ -6,35 +6,32 @@ export class Auth {
   private client = new PublicClientApplication(authSetting);
 
   constructor() {
-    this.init().then(() => {});
+    this.init().then(_ => {});
   }
 
   private async init() {
-    // required to native broker
-    this.client.initialize().then(() => {
-      this.client.handleRedirectPromise().then(this.handleresponse);
-    });
+    await this.client.initialize();
+
+    const res = await this.client.handleRedirectPromise();
+    console.log({res});
+    if (res == null) {
+      return;
+    }
+    this.client.setActiveAccount(res.account);
+  }
+
+  async signin() {
+    this.client.loginRedirect({ scopes: [ 'user.read' ] });
+    return;
   }
 
   async handleresponse(res: AuthenticationResult | null) {
-    console.log(res)
+    if (res != null) {
+      this.client.setActiveAccount(res.account);
+    }
   }
 
   async acquireToken(): Promise<AuthenticationResult | null> {
-    const res = await this.client.acquireTokenSilent({ scopes: [ 'user.read' ] }).catch((err: AuthError) => {
-      if (err.errorMessage.includes('Please call setActiveAccount')) {
-        this.setActiveAccount();
-        return null;
-      }
-      throw err;
-    });
-    return res;
+    return await this.client.acquireTokenSilent({ scopes: [ 'user.read' ] });
   }
-
-  setActiveAccount() {
-    console.log('run')
-    console.log(this.client.getAllAccounts())
-    this.client.setActiveAccount(null);
-  }
-
 }
